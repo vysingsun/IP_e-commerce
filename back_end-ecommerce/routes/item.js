@@ -38,7 +38,7 @@ router.post('/update/:id', auth.ensureSignedIn, async (req, res, next) => {
   res.json(result);
 })
 
-router.post('/delete/:id', auth.ensureSignedIn, async (req, res, next) => {
+router.post('/delete/:id', async (req, res, next) => {
   const {id} = req.params
   const result = await itemService.remove(id);
   res.json(result);

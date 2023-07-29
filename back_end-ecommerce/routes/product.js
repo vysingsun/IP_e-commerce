@@ -1,14 +1,14 @@
-var express = require('express');
+const express = require('express');
 const joiValidation = require('../middlewares/joiValidation');
 const auth = require('../middlewares/auth');
 const { } = require('../schemas');
-var router = express.Router();
+const router = express.Router();
 const productService = require('../services/product');
-
-router.get('/all', async (req, res) => {
-  const result = await productService.findAllProduct();
-  res.json(result);
-})
+const upload = require('../middlewares/upload')
+// router.get('/all', async (req, res) => {
+//   const result = await productService.findAllProduct();
+//   res.json(result);
+// })
 
 router.get('/all/:category?/:item?', async (req, res) => {
   const { category, item } = req.params;
@@ -16,15 +16,16 @@ router.get('/all/:category?/:item?', async (req, res) => {
   res.json(result);
 })
 
-router.get('/:id', auth.ensureSignedIn, async function (req, res, next) {
+router.get('/:id', async function (req, res, next) {
   const { id } = req.params;
   const result = await productService.findById(id);
   res.json(result);
 })
 // auth.ensureSignedIn,
-router.post('/create',  async (req, res, next) => {
+router.post('/create', upload.single('image'), async (req, res, next) => {
   const newProduct = req.body
-  const result = await productService.create(newProduct)
+  const file = req.file.path;
+  const result = await productService.create(newProduct, file)
   res.json(result);
 })
 
@@ -35,7 +36,7 @@ router.post('/update/:id', auth.ensureSignedIn, async (req, res, next) => {
   res.json(result);
 })
 
-router.post('/delete/:id', auth.ensureSignedIn, async (req, res, next) => {
+router.post('/delete/:id', async (req, res, next) => {
   const {id} = req.params
   const result = await productService.remove(id)
   res.json(result);

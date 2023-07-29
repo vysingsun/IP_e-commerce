@@ -1,24 +1,24 @@
 const Products = require("../models/products")
 const mongoose = require('mongoose')
 
-const findAllProduct = async ()=>{
-  try {
-    const products = await Products.find()
-    return {
-      success: true,
-      data: products
-    };
-  } catch (err) {
-    return {
-      success: false,
-      error: err.message
-    }
-  }
-}
+// const findAllProduct = async ()=>{
+//   try {
+//     const products = await Products.find()
+//     return {
+//       success: true,
+//       data: products
+//     };
+//   } catch (err) {
+//     return {
+//       success: false,
+//       error: err.message
+//     }
+//   }
+// }
 
 const findById = async (id) => {
   try {
-    const product = await Products.findById(id)
+    const product = await Products.findById(id).populate(['color','size', 'category', 'item'])
     return {
       success: true,
       data: product
@@ -30,55 +30,95 @@ const findById = async (id) => {
     }
   }
 }
+// ['color','size']
 
-const findAll = async (category = '', item = '') => {
-  let matchCond = {};
-  if(category) matchCond['category'] = mongoose.Types.ObjectId(category)
-  if(item) matchCond['item'] = mongoose.Types.ObjectId(item)
+// const findAll = async (category = '', item = '') => {
+//   let matchCond = {};
+//   if(category) matchCond['category'] = mongoose.Types.ObjectId(category)
+//   if(item) matchCond['item'] = mongoose.Types.ObjectId(item)
 
-  const products = await Products.aggregate([
-    {
-      "$match": matchCond
-    },
-    {
-      $lookup: {
-        from: "prices",
-        localField: "_id",
-        foreignField: "product",
-        as: "prices"
-      },
+//   const products = await Products.aggregate([
+//     {
+//       "$match": matchCond
+//     },
+//     {
+//       $lookup: {
+//         from: "sizes",
+//         localField: "_id",
+//         foreignField: "product",
+//         as: "sizes"
+//       },
 
-    },
-    {
-      $lookup: {
-        from: "categories",
-        localField: "category",
-        foreignField: "_id",
-        as: "category"
-      },
-    },
-    {
+//     },
+//     {
+//       $lookup: {
+//         from: "colors",
+//         localField: "_id",
+//         foreignField: "product",
+//         as: "colors"
+//       },
 
-      $lookup: {
-        from: "items",
-        localField: "item",
-        foreignField: "_id",
-        as: "item"
-      }
-    },
-    { "$unwind": "$category" },
-    { "$unwind": "$item" },
-  ])
+//     },
+//     {
+//       $lookup: {
+//         from: "categories",
+//         localField: "category",
+//         foreignField: "_id",
+//         as: "category"
+//       },
+//     },
+//     {
 
-  if (!products?.length)
-    return []
+//       $lookup: {
+//         from: "items",
+//         localField: "item",
+//         foreignField: "_id",
+//         as: "item"
+//       }
+//     },
+//     { "$unwind": "$category" },
+//     { "$unwind": "$item" },
+//     // { "$unwind": "$colors" },
+//     // { "$unwind": "$sizes" }
+//   ])
 
-  return products
+//   if (!products?.length)
+//     return []
+
+//   return products
+// }
+const findAll = async (req,res) => {
+  try{
+    const product = await Products.find().populate(['color','size', 'category', 'item'])
+    return {
+      success: true,
+      data: product
+    };
+  }catch(error){
+    throw new Error(error)
+  }
 }
 
-const create = async (newProduct) => {
+const create = async (newProduct,file) => {
   try {
-    const product = await Products.create(newProduct)
+    const { title, price, category, item, desc, color, size } = newProduct
+    var images = ''
+    if(file){
+      images = file;
+    }else{
+      images = ''
+    }
+    const newData = {
+      title: title,
+      price: price,
+      category: category,
+      item: item,
+      image: images,
+      desc: desc,
+      size: size,
+      color: color
+    }
+    const product = await Products.create(newData)
     return {
       success: true,
       data: product
@@ -133,6 +173,5 @@ module.exports = {
   update,
   remove,
   findAll,
-  create,
-  findAllProduct
+  create
 }

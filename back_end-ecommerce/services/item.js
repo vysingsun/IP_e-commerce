@@ -32,7 +32,7 @@ const findByCate = async (cate_id) => {
 
 const findAll = async ()=>{
   try {
-    const items = await Items.find()
+    const items = await Items.find().populate('')
     return {
       success: true,
       data: items

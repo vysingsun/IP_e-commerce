@@ -8,7 +8,8 @@ const { register } = require('../services/register');
 const userService = require('../services/user');
 const { logout } = require('../services/logout');
 
-router.get('/me', auth.ensureSignedIn, auth.currentUser, async function (req, res, next) {
+// auth.ensureSignedIn,
+router.get('/me',  auth.currentUser, async function (req, res, next) {
   const { currentUser } = req;
   const result = await userService.findById(currentUser?._id);
   res.json(result);

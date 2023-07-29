@@ -6,18 +6,26 @@ var productSchema = new mongoose.Schema({
   title: String,
   price: Number,
   category: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Categories'
   },
   item: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Items'
   },
   user: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Users'
   },
-  imageUrl: String,
+  color: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Colors'
+  },
+  size: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Sizes'
+  },
+  image: String,
   desc: String,
 }, {
   timestamps: true,
