@@ -11,6 +11,9 @@ router.use('/item', require('./item'));
 router.use('/product', require('./product'));
 router.use('/color', require('./color'));
 router.use('/size', require('./size'));
+router.use('/card', require('./card'));
+router.use('/order', require('./order'));
+router.use('/orderDetail', require('./orderDetail'));
 
 
 module.exports = router;
