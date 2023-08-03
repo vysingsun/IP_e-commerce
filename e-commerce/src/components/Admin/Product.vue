@@ -21,6 +21,12 @@
                             Name
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Category
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Item
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Price
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -34,17 +40,25 @@
                             {{product._id}}
                         </td>
                         <td class="px-6 ">    
-                            <img class=" h-12 w-12 flex-none  bg-gray-50" :src="product.imageUrl" alt="">
+                            <img class="w-12 flex-none  bg-gray-50" :src="serverUrl+product.image" alt="">
                         </td>
                         <td class="px-6 py-4">
                             {{product.title}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{product.category.name}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{product.item.name}}
                         </td>
                         <td class="px-6 py-4">
                             $ {{product.price}}
                         </td>
                         <td class="px-6 py-4">
                             <div>Edit</div>
-                            <button @click="">Delete</button>
+                            <form>
+                                <button @click="DeleteProduct(product._id)">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 </tbody>
@@ -72,7 +86,7 @@
                                     </div>
                                     <div class="mt-2">
                                         <label for="countries" class="block pl-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Image</label>
-                                        <input type="text" name="imageUrl" v-model="imageUrl"  aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="imageUrl">
+                                        <input class="p-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file" ref="file" @change="handleFileChange">
                                     </div>
                                     <div class="mt-2">
                                         <label for="countries" class="block pl-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a Category</label>
@@ -122,15 +136,19 @@
                 price: '',
                 imageUrl: '',
                 category: '',
-                item: ''
+                item: '',
+                file: '',
+                serverUrl: 'http://localhost:3001/static/',
+                imageUrl: null
             }
         },
         async mounted(){
-            this.categories = await categoryApi.getCategoryItem();
+            this.categories = await categoryApi.getCategoryItems();
             this.categories = this.categories.data;
 
             this.products = await productApi.getProductApi();
             this.products = this.products.data;
+            console.log(this.products);
             
         },
         methods:{
@@ -141,20 +159,30 @@
                 this.items = test["data"]
             },
             addProduct(){
-                console.log("Called");
-                console.log(this.title);
-                console.log(this.price);
-                console.log(this.imageUrl);
-                console.log(this.category1);
-                console.log(this.item);
+                const formData = new FormData()
+                formData.append("title", this.title);
+                formData.append("price", this.price);
+                formData.append("image", this.file);
+                formData.append("category", this.category1)
+                formData.append("item", this.item)
                 
-                axios.post("http://localhost:3001/product/create",{
-                    title: this.title,
-                    price: this.price,
-                    imageUrl: this.imageUrl,
-                    category: this.category1,
-                    item: this.item
+                axios.post("http://localhost:3001/product/create",formData,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
                 });
+            },
+            handleFileChange(){
+                this.file = this.$refs.file.files[0];
+            },
+            DeleteProduct(productId){
+                if(confirm('Are you sure ?')){
+                    axios.post(`http://localhost:3001/product/delete/${productId}`)
+                        .then(res => {
+                            console.log("deleted?");
+                            
+                        }); 
+                }
             }
         }
     }

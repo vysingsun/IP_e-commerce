@@ -9,6 +9,7 @@ var productApi = {
         })
         const result = await res.json();
         return result
+        
     }
 }
 export default productApi

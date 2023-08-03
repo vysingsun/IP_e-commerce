@@ -35,8 +35,8 @@ export default {
   },
   methods:{
     login(){
-        console.log(this.email);
-        console.log(this.password);
+        // console.log(this.email);
+        // console.log(this.password);
       fetch('http://localhost:3001/auth/login', {
         method: 'POST',
         headers:{
@@ -50,9 +50,10 @@ export default {
       }).then(res => {
         return res.json();
       }).then((data) => {
-        console.log(data);
+        this.$store.commit('setUserId', data.data.user._id)
+        console.log(this.$store.getters.getUserId);
         if(data.success == true){
-          this.$router.push({name : 'homeAdmin/category'})
+          this.$router.push({name : 'home/logined'})
         }
       })
     }

@@ -16,9 +16,6 @@
                             ID
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Image
-                        </th>
-                        <th scope="col" class="px-6 py-3">
                             Name
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -33,9 +30,6 @@
                     <tr v-for="category in categories" :key="category._id" class="bg-white dark:bg-gray-800">
                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{category._id}}
-                        </td>
-                        <td class="px-6 ">    
-                            <img class=" h-12 w-12 flex-none  bg-gray-50" :src="category.imageUrl" alt="">
                         </td>
                         <td class="px-6 py-4">
                             {{category.name}}
@@ -69,10 +63,6 @@
                                     <div class="mt-2">
                                         <input type="text" name="desc" v-model="desc"  aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Description">
                                     </div>
-                                    <div class="mt-2">
-                                        <input type="text" name="imageUrl" v-model="imageUrl" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ImageUrl">
-                                    </div>
-                                    
                                 </div>
                             </div>
                             <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
@@ -139,8 +129,9 @@
             }
         },
         async mounted(){
-            this.categories = await categoryApi.getCategoryItem();
+            this.categories = await categoryApi.getCategoryItems();
             this.categories = this.categories.data;
+            
         },
         methods: {
             async addCategory(){

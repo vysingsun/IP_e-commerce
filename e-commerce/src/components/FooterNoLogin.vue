@@ -7,11 +7,11 @@
             <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-4">
                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                    <a href="/vysingsun_e_commerce.github.io/" class=" text-white hover:bg-[#f2b31a] rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a>
-                    <a href="/vysingsun_e_commerce.github.io/product" class="text-white hover:bg-[#f2b31a] hover:text-white rounded-md px-3 py-2 text-sm font-medium">Products</a>
-                    <a href="#" class="text-white hover:bg-[#f2b31a] hover:text-white rounded-md px-3 py-2 text-sm font-medium">Contact</a>
-                    <a href="/vysingsun_e_commerce.github.io/about" class="text-white hover:bg-[#f2b31a] hover:text-white rounded-md px-3 py-2 text-sm font-medium">About</a>
-                    <a href="#" class="text-white hover:bg-[#f2b31a] hover:text-white rounded-md px-3 py-2 text-sm font-medium">Reports</a>
+                    <a href="/vysingsun_e_commerce.github.io/login" class=" text-white hover:bg-[#f2b31a] rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a>
+                    <a href="/vysingsun_e_commerce.github.io/login" class="text-white hover:bg-[#f2b31a] hover:text-white rounded-md px-3 py-2 text-sm font-medium">Products</a>
+                    <a href="/vysingsun_e_commerce.github.io/login" class="text-white hover:bg-[#f2b31a] hover:text-white rounded-md px-3 py-2 text-sm font-medium">Contact</a>
+                    <a href="/vysingsun_e_commerce.github.io/login" class="text-white hover:bg-[#f2b31a] hover:text-white rounded-md px-3 py-2 text-sm font-medium">About</a>
+                    <a href="/vysingsun_e_commerce.github.io/login" class="text-white hover:bg-[#f2b31a] hover:text-white rounded-md px-3 py-2 text-sm font-medium">Reports</a>
                 </div>
             </div>
         </div>

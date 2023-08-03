@@ -7,6 +7,11 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      component: () => import('../views/ViewHomeNoLoginYet.vue')
+    },
+    {
+      path: '/home/logined',
+      name: 'home/logined',
       component: HomeView
     },
     {
@@ -25,9 +30,54 @@ const router = createRouter({
       component: () => import('../views/ProductView.vue')
     },
     {
+      path: '/homeAdmin/color',
+      name: 'homeAdmin/color',
+      component: () => import('../views/ColorAdminView.vue')
+    },
+    {
+      path: '/homeAdmin/size',
+      name: 'homeAdmin/size',
+      component: () => import('../views/SizeAdminView.vue')
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('../views/loginView.vue')
+    },
+    {
+      path: '/product',
+      name: 'product',
+      component: () => import('../views/AllProductView.vue')
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('../views/AboutView.vue')
+    },
+    {
+      path: '/list/:id',
+      name: 'list',
+      component: () => import('../views/testListPro.vue')
+    },
+    {
+      path: '/card',
+      name: 'card',
+      component: () => import('../views/cardView.vue')
+    },
+    {
+      path: '/order',
+      name: 'order',
+      component: () => import('../views/orderView.vue')
+    },
+    {
+      path: '/payment',
+      name: 'payment',
+      component: () => import('../views/paymentView.vue')
+    },
+    {
+      path: '/receipt',
+      name: 'receipt',
+      component: () => import('../views/receiptView.vue')
     }
   ]
 })

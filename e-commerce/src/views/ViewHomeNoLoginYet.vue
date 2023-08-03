@@ -1,11 +1,10 @@
 <script setup>
-import Header from '../components/Header.vue'
-import Footer from '../components/Footer.vue'
+    import HeaderNoLoginYet from '../components/HeaderNoLogin.vue'
+    import FooterNoLoginYet from '../components/FooterNoLogin.vue'
 </script>
-
 <template>
-  <Header />
-  <!-- bodypage -->
+    <HeaderNoLoginYet />
+    <!-- bodypage -->
   <div class="w-full flex h-[70vh]">
     <!-- label -->
     <div class="w-[50%] ml-36 p-20">
@@ -15,7 +14,7 @@ import Footer from '../components/Footer.vue'
         birds in all of the regions of the United States and Canada. 
         Download any of our guides for free now!</strong></p>
       <div class="">
-        <a href="/vysingsun_e_commerce.github.io/product">
+        <a href="/vysingsun_e_commerce.github.io/login">
           <button class="bg-black text-white px-[10%] py-[5%] mt-4"><strong>VIEW COLLECTIONS</strong></button>
         </a>
       </div>
@@ -35,7 +34,7 @@ import Footer from '../components/Footer.vue'
   </div>
 
   <div class="w-full px-10 mt-8">
-    <a href="/vysingsun_e_commerce.github.io/product">
+    <a href="/vysingsun_e_commerce.github.io/login">
       <div class="w-full bg-[#ffbe1c] rounded-3xl p-8 flex justify-center text-white">Click here for 10% off</div>
     </a>
   </div>
@@ -71,8 +70,7 @@ import Footer from '../components/Footer.vue'
   </div>
   
   <!-- Footer -->
-  <Footer/>
-  
+    <FooterNoLoginYet/>
 </template>
 
 <script>

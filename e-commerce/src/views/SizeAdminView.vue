@@ -1,7 +1,7 @@
 <script setup>
     import HeaderAdmin from '../components/HeaderAdmin.vue';
     import SidebarAdmin from '../components/SidebarAdmin.vue';
-    import Category from '../components/Admin/Category.vue'
+    import Size from '../components/Admin/Size.vue'
 </script>
 <template>
     <div>
@@ -12,10 +12,9 @@
                     <!-- Sidebar -->
                     <SidebarAdmin/>
                     <!-- List -->
-                    <Category/>
+                    <Size/>
                 </div>
             </div>
         </main>
     </div>
 </template>
-
